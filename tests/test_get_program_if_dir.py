@@ -8,7 +8,8 @@ def test_exact_match():
 
 
 def test_exact_match_with_args():
-    assert get_program_if_dir('git diff', ['git', 'nvim']) == 'git diff'
+    # dir_programs only show program name (without args) so directory fits in max_name_len
+    assert get_program_if_dir('git diff', ['git', 'nvim']) == 'git'
 
 
 def test_no_match():

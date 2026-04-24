@@ -309,12 +309,20 @@ def get_current_program(running_programs: List[bytes], pane: TmuxPane, options: 
 
 
 def get_program_if_dir(program_line: str, dir_programs: List[str]) -> Optional[str]:
+    """Check if program matches dir_programs and return just the program name (without args).
+
+    For dir_programs, we only show the program name without arguments so that
+    the directory name has room to display within max_name_len. This prevents
+    long commands like 'claude --dangerously-skip-permissions' from pushing
+    the directory out of the window name.
+    """
     program = program_line.split()
 
     for p in dir_programs:
         if p == program[0] or p == Path(program[0]).name:
-            program[0] = p
-            return ' '.join(program)
+            # Return only the program name (without args) for dir_programs
+            # This ensures directory name has room to display
+            return p
         for word in program[1:]:
             if word == p or word.endswith('/' + p):
                 return p
