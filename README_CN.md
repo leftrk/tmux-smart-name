@@ -1,4 +1,8 @@
-# tmux-window-name (中文版)
+# tmux-window-name
+
+[English](README.md) | [中文](README_CN.md)
+
+智能 tmux 窗口命名，类似 IDE 标签页。
 
 智能 tmux 窗口命名，类似 IDE 标签页。
 

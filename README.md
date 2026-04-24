@@ -1,5 +1,7 @@
 # tmux-window-name
 
+[English](README.md) | [中文](README_CN.md)
+
 Smart tmux window names like IDE tablines.
 
 ![Screenshot](screenshots/example.png)
