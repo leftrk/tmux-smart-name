@@ -1,6 +1,6 @@
 [project]
 name = "tmux-window-name"
-version = "1.0.0"
+version = "1.0.1"
 description = "Smart tmux window names like IDE tablines"
 readme = "README.md"
 license = "MIT"
