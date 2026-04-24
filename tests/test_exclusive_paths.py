@@ -1,17 +1,14 @@
 #!/usr/bin/env python3
 
-# I hate this but i don't want to make it a pip package, its a script.
-import sys
 import pytest
 from typing import List, Optional, Tuple
 from dataclasses import dataclass
 
-sys.path.append('scripts/')
-
-from path_utils import get_exclusive_paths, Pane
+from tmux_window_name.path_utils import get_exclusive_paths, Pane
 
 
-pytestmark = pytest.mark.parametrize("ignore_program_diffs", [True, False])
+pytestmark = pytest.mark.parametrize('ignore_program_diffs', [True, False])
+
 
 @dataclass
 class FakePane:
@@ -47,7 +44,7 @@ def test_not_intersect(ignore_program_diffs: bool):
             ('a/a_dir', None, 'a_dir'),
             ('b/b_dir', None, 'b_dir'),
         ],
-        ignore_program_diffs
+        ignore_program_diffs,
     )
 
     _check(
@@ -55,7 +52,7 @@ def test_not_intersect(ignore_program_diffs: bool):
             ('a', None, 'a'),
             ('b', None, 'b'),
         ],
-        ignore_program_diffs
+        ignore_program_diffs,
     )
 
     _check(
@@ -64,7 +61,7 @@ def test_not_intersect(ignore_program_diffs: bool):
             ('b', None, 'b'),
             ('c', None, 'c'),
         ],
-        ignore_program_diffs
+        ignore_program_diffs,
     )
 
 
@@ -74,7 +71,7 @@ def test_basic_intersect(ignore_program_diffs: bool):
             ('a/dir', None, 'a/dir'),
             ('b/dir', None, 'b/dir'),
         ],
-        ignore_program_diffs
+        ignore_program_diffs,
     )
 
 
@@ -84,7 +81,7 @@ def test_not_same_length(ignore_program_diffs: bool):
             ('a/b/dir', None, 'a/b/dir'),
             ('b/dir', None, 'b/dir'),
         ],
-        ignore_program_diffs
+        ignore_program_diffs,
     )
 
 
@@ -95,7 +92,7 @@ def test_reacurring_dir(ignore_program_diffs: bool):
             ('b/dir', None, 'b/dir'),
             ('c/dir', None, 'c/dir'),
         ],
-        ignore_program_diffs
+        ignore_program_diffs,
     )
 
 
@@ -106,7 +103,7 @@ def test_same_path_twice_dir(ignore_program_diffs: bool):
             ('a/dir', None, 'a/dir'),
             ('b/dir', None, 'b/dir'),
         ],
-        ignore_program_diffs
+        ignore_program_diffs,
     )
 
     _check(
@@ -115,7 +112,7 @@ def test_same_path_twice_dir(ignore_program_diffs: bool):
             ('b/dir', None, 'b/dir'),
             ('a/dir', None, 'a/dir'),
         ],
-        ignore_program_diffs
+        ignore_program_diffs,
     )
 
     _check(
@@ -125,7 +122,7 @@ def test_same_path_twice_dir(ignore_program_diffs: bool):
             ('b/dir', None, 'b/dir'),
             ('a/dir', None, 'a/dir'),
         ],
-        ignore_program_diffs
+        ignore_program_diffs,
     )
 
     _check(
@@ -135,7 +132,7 @@ def test_same_path_twice_dir(ignore_program_diffs: bool):
             ('a/dir', None, 'a/dir'),
             ('b/dir', None, 'b/dir'),
         ],
-        ignore_program_diffs
+        ignore_program_diffs,
     )
 
     _check(
@@ -147,7 +144,7 @@ def test_same_path_twice_dir(ignore_program_diffs: bool):
             ('b/dir', None, 'b/dir'),
             ('c/dir', None, 'c/dir'),
         ],
-        ignore_program_diffs
+        ignore_program_diffs,
     )
 
 
@@ -158,7 +155,7 @@ def test_mixed_basic(ignore_program_diffs: bool):
             ('b/dir', None, 'b/dir'),
             ('c/c_dir', None, 'c_dir'),
         ],
-        ignore_program_diffs
+        ignore_program_diffs,
     )
 
     _check(
@@ -167,7 +164,7 @@ def test_mixed_basic(ignore_program_diffs: bool):
             ('b/c/d', None, 'b/c/d'),
             ('dirrr', None, 'dirrr'),
         ],
-        ignore_program_diffs
+        ignore_program_diffs,
     )
 
 
@@ -177,7 +174,7 @@ def test_program_basic(ignore_program_diffs: bool):
             ('a/dir', 'p1', 'a/dir' if ignore_program_diffs else 'dir'),
             ('b/dir', None, 'b/dir' if ignore_program_diffs else 'dir'),
         ],
-        ignore_program_diffs
+        ignore_program_diffs,
     )
 
     _check(
@@ -185,7 +182,7 @@ def test_program_basic(ignore_program_diffs: bool):
             ('a/dir', 'p1', 'a/dir' if ignore_program_diffs else 'dir'),
             ('b/dir', 'p2', 'b/dir' if ignore_program_diffs else 'dir'),
         ],
-        ignore_program_diffs
+        ignore_program_diffs,
     )
 
     _check(
@@ -193,7 +190,7 @@ def test_program_basic(ignore_program_diffs: bool):
             ('a/dir', 'p1', 'a/dir'),
             ('b/dir', 'p1', 'b/dir'),
         ],
-        ignore_program_diffs
+        ignore_program_diffs,
     )
 
     _check(
@@ -201,7 +198,7 @@ def test_program_basic(ignore_program_diffs: bool):
             ('a/dir', 'p1', 'a/dir' if ignore_program_diffs else 'dir'),
             ('b/dir', 'p2', 'b/dir' if ignore_program_diffs else 'dir'),
         ],
-        ignore_program_diffs
+        ignore_program_diffs,
     )
 
 
@@ -212,7 +209,7 @@ def test_program_mixed(ignore_program_diffs: bool):
             ('b/dir', None, 'b/dir' if ignore_program_diffs else 'dir'),
             ('c/dir', 'p2', 'c/dir' if ignore_program_diffs else 'dir'),
         ],
-        ignore_program_diffs
+        ignore_program_diffs,
     )
 
     _check(
@@ -222,7 +219,7 @@ def test_program_mixed(ignore_program_diffs: bool):
             ('a/dir', 'p1', 'a/dir' if ignore_program_diffs else 'dir'),
             ('c/dir', 'p2', 'c/dir' if ignore_program_diffs else 'dir'),
         ],
-        ignore_program_diffs
+        ignore_program_diffs,
     )
 
     _check(
@@ -232,5 +229,5 @@ def test_program_mixed(ignore_program_diffs: bool):
             ('a/dir', 'p1', 'a/dir'),
             ('c/dir', 'p2', 'c/dir' if ignore_program_diffs else 'dir'),
         ],
-        ignore_program_diffs
+        ignore_program_diffs,
     )

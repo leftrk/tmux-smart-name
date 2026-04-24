@@ -1,13 +1,9 @@
 #!/usr/bin/env python3
 
-import sys
 from dataclasses import dataclass
-from typing import Optional
-from unittest.mock import Mock, patch, call
+from unittest.mock import Mock
 
-sys.path.append('scripts/')
-
-from rename_session_windows import Options, IconStyle, get_program_icon, substitute_name, DEFAULT_PROGRAM_ICONS
+from tmux_window_name.cli import Options, IconStyle, get_program_icon, substitute_name, DEFAULT_PROGRAM_ICONS
 
 
 @dataclass
@@ -57,8 +53,8 @@ def test_substitute_name_name_style():
     options = Options(icon_style=IconStyle.NAME)
     name, style = substitute_name('python', options.substitute_sets, options, True)
     assert name == 'python'
-    assert style.icon_set == False
-    assert style.only_icon == False
+    assert not style.icon_set
+    assert not style.only_icon
 
 
 def test_substitute_name_icon_style():
@@ -66,8 +62,8 @@ def test_substitute_name_icon_style():
     options = Options(icon_style=IconStyle.ICON)
     name, style = substitute_name('python', options.substitute_sets, options, True)
     assert name == DEFAULT_PROGRAM_ICONS['python']
-    assert style.icon_set == True
-    assert style.only_icon == True
+    assert style.icon_set
+    assert style.only_icon
 
 
 def test_substitute_name_name_and_icon_style():
@@ -75,16 +71,17 @@ def test_substitute_name_name_and_icon_style():
     options = Options(icon_style=IconStyle.NAME_AND_ICON)
     name, style = substitute_name('python', options.substitute_sets, options, True)
     assert name == f'{DEFAULT_PROGRAM_ICONS["python"]} python'
-    assert style.icon_set == True
-    assert style.only_icon == False
+    assert style.icon_set
+    assert not style.only_icon
+
 
 def test_substitute_name_dir_and_icon_style():
     """Test window renaming with 'name_and_icon' style"""
     options = Options(icon_style=IconStyle.DIR_AND_ICON)
     name, style = substitute_name('python', options.substitute_sets, options, True)
     assert name == f'{DEFAULT_PROGRAM_ICONS["python"]}'
-    assert style.icon_set == True
-    assert style.only_icon == False
+    assert style.icon_set
+    assert not style.only_icon
     # Same behavior as NAME_AND_ICON for now
 
 
@@ -93,8 +90,8 @@ def test_substitute_name_custom_icon():
     options = Options(icon_style=IconStyle.NAME_AND_ICON, custom_icons={'python': '🐍'})
     name, style = substitute_name('python', options.substitute_sets, options, True)
     assert name == '🐍 python'
-    assert style.icon_set == True
-    assert style.only_icon == False
+    assert style.icon_set
+    assert not style.only_icon
 
 
 def test_get_program_icon_with_colon():

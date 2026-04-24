@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
 
-import sys
-
-sys.path.append('scripts/')
-
-from rename_session_windows import get_program_if_dir
+from tmux_window_name.cli import get_program_if_dir
 
 
 def test_exact_match():
