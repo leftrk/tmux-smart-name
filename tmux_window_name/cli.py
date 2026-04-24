@@ -17,7 +17,7 @@ from libtmux.server import Server
 from libtmux.session import Session
 from libtmux.pane import Pane as TmuxPane
 
-from path_utils import get_exclusive_paths, Pane
+from .path_utils import get_exclusive_paths, Pane
 
 OPTIONS_PREFIX = '@tmux_window_name_'
 HOOK_INDEX = 8921
@@ -286,7 +286,7 @@ def get_current_program(running_programs: List[bytes], pane: TmuxPane, options: 
                 f'program={program} program_name={program_name} program_name_stripped={program_name_stripped}'
             )
 
-            if len(program) > 1 and 'scripts/rename_session_windows.py' in program[1].decode():
+            if len(program) > 1 and 'rename_session_windows.py' in program[1].decode():
                 logging.debug(f'skipping {program[1]}, its the script')
                 continue
 
@@ -457,7 +457,7 @@ def print_programs(server: Server, options: Options):
 def main():
     server = Server()
 
-    parser = ArgumentParser('rename_session_windows.py')
+    parser = ArgumentParser('tmux-window-name')
     parser.add_argument('--print_programs', action='store_true', help='Prints full name of the programs in the session')
     parser.add_argument('--enable_rename_hook', action='store_true', help='Enables rename hook, for internal use')
     parser.add_argument('--disable_rename_hook', action='store_true', help='Enables rename hook, for internal use')
