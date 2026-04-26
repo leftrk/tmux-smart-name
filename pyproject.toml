@@ -1,5 +1,5 @@
 [project]
-name = "tmux-window-name"
+name = "tmux-smart-name"
 version = "1.0.4"
 description = "Smart tmux window names like IDE tablines"
 readme = "README.md"

@@ -1,4 +1,4 @@
-# tmux-window-name
+# tmux-smart-name
 
 [English](README.md) | [中文](README_CN.md)
 
@@ -25,19 +25,19 @@ See [tests](tests/) for more scenarios.
 ### Homebrew (recommended)
 
 ```bash
-brew install leftrk/tap/tmux-window-name
+brew install leftrk/tap/tmux-smart-name
 ```
 
 Add to `~/.tmux.conf`:
 
 ```tmux.conf
-run-shell $(brew --prefix tmux-window-name)/libexec/tmux_window_name.tmux
+run-shell $(brew --prefix tmux-smart-name)/libexec/tmux_window_name.tmux
 ```
 
 ### TPM
 
 ```tmux.conf
-set -g @plugin 'leftrk/tmux-window-name'
+set -g @plugin 'leftrk/tmux-smart-name'
 ```
 
 Press `prefix + I` to install.

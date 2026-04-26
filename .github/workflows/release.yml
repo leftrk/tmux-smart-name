@@ -21,7 +21,7 @@ jobs:
       - name: Calculate SHA256
         id: sha
         run: |
-          curl -sL https://github.com/leftrk/tmux-window-name/archive/refs/tags/${{ steps.version.outputs.VERSION }}.tar.gz -o release.tar.gz
+          curl -sL https://github.com/leftrk/tmux-smart-name/archive/refs/tags/${{ steps.version.outputs.VERSION }}.tar.gz -o release.tar.gz
           SHA256=$(sha256sum release.tar.gz | cut -d' ' -f1)
           echo "SHA256=$SHA256" >> $GITHUB_OUTPUT
 
@@ -35,5 +35,5 @@ jobs:
       - name: Print Formula update instructions
         run: |
           echo "Formula update needed in homebrew-tap repo:"
-          echo "  url: https://github.com/leftrk/tmux-window-name/archive/refs/tags/${{ steps.version.outputs.VERSION }}.tar.gz"
+          echo "  url: https://github.com/leftrk/tmux-smart-name/archive/refs/tags/${{ steps.version.outputs.VERSION }}.tar.gz"
           echo "  sha256: ${{ steps.sha.outputs.SHA256 }}"
