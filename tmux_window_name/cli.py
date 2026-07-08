@@ -180,6 +180,11 @@ class Options:
     substitute_sets: List[Tuple] = field(
         default_factory=lambda: [
             (r'.+ipython([32])', r'ipython\g<1>'),
+            # Fold Node CLI wrappers: `node [v8-options] /.../bin/<name> [args]` -> `<name> [args]`.
+            # Homebrew-installed Node CLIs (e.g. openclaude) show up in `ps` as
+            # `node --max-old-space-size=... --expose-gc /opt/homebrew/bin/openclaude`,
+            # which otherwise fills the window name with the full launcher path.
+            (r'^node(?:\s+-?[\w-]+(?:=\S+)?)*\s+\S*/(?:s?bin)/([^/\s]+)(.*)$', r'\g<1>\g<2>'),
             USR_BIN_REMOVER,
             (r'(bash) (.+)/(.+[ $])(.+)', r'\g<3>\g<4>'),
             (r'.+poetry shell', 'poetry'),

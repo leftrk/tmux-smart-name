@@ -109,3 +109,39 @@ def test_custom_icons_from_dictionary():
     assert get_program_icon('python', options) == '🐍'
     assert get_program_icon('custom', options) == '📦'
     assert get_program_icon('nvim', options) == '󰹻'
+
+
+def test_substitute_name_folds_node_homebrew_cli():
+    """Node CLI wrappers launched via Homebrew bin should fold to the CLI name."""
+    options = Options(icon_style=IconStyle.NAME)
+    name, _ = substitute_name(
+        'node --max-old-space-size=8192 --expose-gc /opt/homebrew/bin/openclaude',
+        options.substitute_sets,
+        options,
+        True,
+    )
+    assert name == 'openclaude'
+
+
+def test_substitute_name_folds_node_linuxbrew_cli():
+    """Same fold should cover Linuxbrew path layout."""
+    options = Options(icon_style=IconStyle.NAME)
+    name, _ = substitute_name(
+        'node /home/linuxbrew/.linuxbrew/bin/openclaude',
+        options.substitute_sets,
+        options,
+        True,
+    )
+    assert name == 'openclaude'
+
+
+def test_substitute_name_folds_node_cli_with_user_args():
+    """User args after the launcher path should be preserved."""
+    options = Options(icon_style=IconStyle.NAME)
+    name, _ = substitute_name(
+        'node --expose-gc /opt/homebrew/bin/openclaude --dangerously-skip-permissions',
+        options.substitute_sets,
+        options,
+        True,
+    )
+    assert name == 'openclaude --dangerously-skip-permissions'

@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.8] - 2026-07-08
+
+### Fixed
+- Fold Node CLI wrappers (e.g. Homebrew-installed `openclaude`) launched as
+  `node [v8-options] /.../bin/<name> [args]` into `<name> [args]`, instead of
+  showing the full launcher path (`/opt/homebrew/bin/openclaude`,
+  `/home/linuxbrew/.linuxbrew/bin/...`) in the window name.
+
 ### Changed
 - Converted project to uv-managed Python package
 - Switched to `uv_build` build backend
@@ -34,5 +42,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - tmux-resurrect integration hooks
 - Neovim/Vim/Shell hooks for automatic rename triggers
 
-[Unreleased]: https://github.com/leftrk/tmux-window-name/compare/v1.0.0...dev
+[Unreleased]: https://github.com/leftrk/tmux-smart-name/compare/v1.0.8...dev
+[1.0.8]: https://github.com/leftrk/tmux-smart-name/releases/tag/v1.0.8
 [1.0.0]: https://github.com/leftrk/tmux-window-name/releases/tag/v1.0.0
