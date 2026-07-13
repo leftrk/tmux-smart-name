@@ -22,25 +22,14 @@ See [tests](tests/) for more scenarios.
 
 > **Recommended**: Use with [Oh My Tmux](https://github.com/gpakosz/.tmux) for best experience.
 
-### Homebrew (recommended)
-
-```bash
-brew install leftrk/tap/tmux-smart-name
-```
-
-Add to `~/.tmux.conf`:
-
-```tmux.conf
-run-shell $(brew --prefix tmux-smart-name)/libexec/tmux_window_name.tmux
-```
-
 ### TPM
 
 ```tmux.conf
 set -g @plugin 'leftrk/tmux-smart-name'
 ```
 
-Press `prefix + I` to install.
+Press `prefix + I` to install. `libtmux` is installed automatically on first run
+(via `uv`, falling back to `pipx`/`pip`).
 
 ## Common Options
 

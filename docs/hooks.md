@@ -13,12 +13,6 @@ vim.api.nvim_create_autocmd({ 'VimEnter', 'VimLeave' }, {
   callback = function()
     if vim.env.TMUX_PLUGIN_MANAGER_PATH then
       uv.spawn(vim.env.TMUX_PLUGIN_MANAGER_PATH .. '/tmux-smart-name/tmux_window_name.tmux', {})
-    elseif vim.env.TMUX then
-      -- Homebrew/manual install
-      local path = vim.fn.system('brew --prefix tmux-smart-name 2>/dev/null || echo ""')
-      if path ~= '' then
-        uv.spawn(path:gsub('\n', '') .. '/libexec/tmux_window_name.tmux', {})
-      end
     end
   end,
 })
@@ -40,12 +34,6 @@ Rename after directory change:
 
 ```bash
 tmux-smart-name() {
-  local script
-  if [[ -n $TMUX_PLUGIN_MANAGER_PATH ]]; then
-    script="$TMUX_PLUGIN_MANAGER_PATH/tmux-smart-name/tmux_window_name.tmux"
-  else
-    script="$(brew --prefix tmux-smart-name)/libexec/tmux_window_name.tmux"
-  fi
   (python3 -m tmux_window_name.cli &)
 }
 

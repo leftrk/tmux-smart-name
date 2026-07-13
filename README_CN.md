@@ -22,25 +22,13 @@
 
 > **推荐**：配合 [Oh My Tmux](https://github.com/gpakosz/.tmux) 使用效果最佳。
 
-### Homebrew（推荐）
-
-```bash
-brew install leftrk/tap/tmux-smart-name
-```
-
-添加到 `~/.tmux.conf`：
-
-```tmux.conf
-run-shell $(brew --prefix tmux-smart-name)/libexec/tmux_window_name.tmux
-```
-
 ### TPM
 
 ```tmux.conf
 set -g @plugin 'leftrk/tmux-smart-name'
 ```
 
-按 `prefix + I` 安装。
+按 `prefix + I` 安装。首次运行会自动安装 `libtmux`（优先 `uv`，回退 `pipx`/`pip`）。
 
 ## 常用配置
 

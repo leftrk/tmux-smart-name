@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- Strip the leading directory from a program's `argv[0]` for any install prefix
+  (`/opt/homebrew/bin`, `~/.local/bin`, `/home/linuxbrew/...`, etc.), not just
+  `/usr/bin` and `/bin`. Programs launched by absolute path no longer show the
+  full executable path in the window name.
+
+### Removed
+- Homebrew distribution: dropped the `Formula/` tap formula and the brew-oriented
+  GitHub Actions release workflow. Install via TPM (`set -g @plugin`) only.
+
 ## [1.0.8] - 2026-07-08
 
 ### Fixed
