@@ -22,7 +22,10 @@ from .path_utils import get_exclusive_paths, Pane
 OPTIONS_PREFIX = '@tmux_window_name_'
 HOOK_INDEX = 8921
 HOME_DIR = os.path.expanduser('~')
-USR_BIN_REMOVER = (r'^(/usr)?/bin/(.+)', r'\g<2>')
+# Strip the leading directory from the program (argv[0]) so window names show just
+# the executable name, not its absolute path. Covers /usr/bin and /bin as well as
+# any other install prefix (/opt/homebrew/bin, ~/.local/bin, /home/linuxbrew/...).
+BIN_PATH_REMOVER = (r'^\S*/([^/\s]+)', r'\g<1>')
 
 DEFAULT_PROGRAM_ICONS = {
     'nvim': '',  # nf-dev-vim
@@ -185,7 +188,7 @@ class Options:
             # `node --max-old-space-size=... --expose-gc /opt/homebrew/bin/openclaude`,
             # which otherwise fills the window name with the full launcher path.
             (r'^node(?:\s+-?[\w-]+(?:=\S+)?)*\s+\S*/(?:s?bin)/([^/\s]+)(.*)$', r'\g<1>\g<2>'),
-            USR_BIN_REMOVER,
+            BIN_PATH_REMOVER,
             (r'(bash) (.+)/(.+[ $])(.+)', r'\g<3>\g<4>'),
             (r'.+poetry shell', 'poetry'),
         ]
@@ -286,7 +289,7 @@ def get_current_program(running_programs: List[bytes], pane: TmuxPane, options: 
         if int(program[0]) == int(pane.pane_pid):
             program = program[1:]
             program_name = program[0].decode()
-            program_name_stripped = re.sub(USR_BIN_REMOVER[0], USR_BIN_REMOVER[1], program_name)
+            program_name_stripped = re.sub(BIN_PATH_REMOVER[0], BIN_PATH_REMOVER[1], program_name)
             logging.debug(
                 f'program={program} program_name={program_name} program_name_stripped={program_name_stripped}'
             )

@@ -145,3 +145,24 @@ def test_substitute_name_folds_node_cli_with_user_args():
         True,
     )
     assert name == 'openclaude --dangerously-skip-permissions'
+
+
+def test_substitute_name_strips_homebrew_bin_path():
+    """Programs run by absolute path (e.g. Homebrew bins) fold to the executable name."""
+    options = Options(icon_style=IconStyle.NAME)
+    name, _ = substitute_name('/opt/homebrew/bin/btop', options.substitute_sets, options, True)
+    assert name == 'btop'
+
+
+def test_substitute_name_strips_bin_path_keeps_args():
+    """Only argv[0]'s directory is stripped; arguments (even paths) are preserved."""
+    options = Options(icon_style=IconStyle.NAME)
+    name, _ = substitute_name('/Users/me/.local/bin/lazygit --path /some/repo', options.substitute_sets, options, True)
+    assert name == 'lazygit --path /some/repo'
+
+
+def test_substitute_name_leaves_bare_command():
+    """A command with no directory component is left untouched."""
+    options = Options(icon_style=IconStyle.NAME)
+    name, _ = substitute_name('btop', options.substitute_sets, options, True)
+    assert name == 'btop'
