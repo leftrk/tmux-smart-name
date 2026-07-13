@@ -123,6 +123,19 @@ def test_substitute_name_folds_node_homebrew_cli():
     assert name == 'openclaude'
 
 
+def test_substitute_name_folds_node_cli_absolute_node_path():
+    """node itself is commonly an absolute path (Homebrew), e.g.
+    `/opt/homebrew/opt/node/bin/node /opt/homebrew/bin/openclaude`."""
+    options = Options(icon_style=IconStyle.NAME)
+    name, _ = substitute_name(
+        '/opt/homebrew/opt/node/bin/node /opt/homebrew/bin/openclaude',
+        options.substitute_sets,
+        options,
+        True,
+    )
+    assert name == 'openclaude'
+
+
 def test_substitute_name_folds_node_linuxbrew_cli():
     """Same fold should cover Linuxbrew path layout."""
     options = Options(icon_style=IconStyle.NAME)

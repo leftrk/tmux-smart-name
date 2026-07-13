@@ -183,11 +183,12 @@ class Options:
     substitute_sets: List[Tuple] = field(
         default_factory=lambda: [
             (r'.+ipython([32])', r'ipython\g<1>'),
-            # Fold Node CLI wrappers: `node [v8-options] /.../bin/<name> [args]` -> `<name> [args]`.
-            # Homebrew-installed Node CLIs (e.g. openclaude) show up in `ps` as
-            # `node --max-old-space-size=... --expose-gc /opt/homebrew/bin/openclaude`,
-            # which otherwise fills the window name with the full launcher path.
-            (r'^node(?:\s+-?[\w-]+(?:=\S+)?)*\s+\S*/(?:s?bin)/([^/\s]+)(.*)$', r'\g<1>\g<2>'),
+            # Fold Node CLI wrappers: `[/path/to/]node [v8-options] /.../bin/<name> [args]`
+            # -> `<name> [args]`. Homebrew-installed Node CLIs (e.g. openclaude) show up in
+            # `ps` as `/opt/homebrew/opt/node/bin/node --expose-gc /opt/homebrew/bin/openclaude`
+            # (node itself is often an absolute path), which otherwise fills the window name
+            # with the full launcher path.
+            (r'^(?:\S*/)?node(?:\s+-?[\w-]+(?:=\S+)?)*\s+\S*/(?:s?bin)/([^/\s]+)(.*)$', r'\g<1>\g<2>'),
             BIN_PATH_REMOVER,
             (r'(bash) (.+)/(.+[ $])(.+)', r'\g<3>\g<4>'),
             (r'.+poetry shell', 'poetry'),
